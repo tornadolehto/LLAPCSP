@@ -20,7 +20,8 @@ def update_coords() -> None:
             positions[coords_index] = list(positions[coords_index+1])
 
         if ate == True:
-              positions.insert(0,new)
+              positions.insert(0,new) 
+              ate == False
         
         if direction == "up":
                 positions[len(positions)-1][1] -= 1
