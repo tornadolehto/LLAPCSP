@@ -29,7 +29,6 @@ def add_fruit(positions) -> None:
 def check_eat(positions) -> None:
     global fruit_present
     global ate
-    ate = False
     if positions[len(positions)-1] == chosen_position:
         fruit_present = False
         ate = True
