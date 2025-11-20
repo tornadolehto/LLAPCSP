@@ -1,26 +1,23 @@
-from updatepos import update_coords
-from updatepos import positions
-from updatepos import update_input
-from display import create_grid
+import displayboard
+import updatepos
 import time
 import os
+from dependency import *
 lost = False
-rows = 10
-columns = 10
-grid = create_grid(rows,columns)
+grid = displayboard.create_grid(rows,columns)
 while True:
     #loss check
     losscheck = []
-    for i in positions:
+    for i in updatepos.positions:
         if i in losscheck:
             lost = True
             break
         else:
             losscheck.append(i)
-        if i[0] > rows-1 or i[0] < 0:
+        if i[1] > rows-1 or i[1] < 0:
             lost = True
             break
-        if i[1] > columns-1 or i[1] < 0:
+        if i[0] > columns-1 or i[0] < 0:
             lost = True
             break
     if lost == True:
@@ -28,14 +25,21 @@ while True:
 
     time.sleep(0.2)
     os.system('cls')
-    update_input()
-    update_coords()
+    updatepos.update_input()
+    updatepos.update_coords()
+    displayboard.add_fruit(updatepos.positions)
+    displayboard.check_eat(updatepos.positions)
+
+    
     for xindex in range(0, columns):
         for yindex in range(0, rows):
-            if [xindex, yindex] in positions:
-                grid[xindex][yindex] = "O"
+            if [xindex, yindex] in updatepos.positions:
+                grid[yindex][xindex] = "O"
+            elif [xindex,yindex] == fruit_coords:
+                grid[yindex][xindex] = "X"
+                print('yes')
             else:
-                grid[xindex][yindex] = "/"
+                grid[yindex][xindex] = "/"
     for row in grid:
         print(str("".join(i for i in row)))
 

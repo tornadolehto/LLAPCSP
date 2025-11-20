@@ -1,5 +1,6 @@
 positions = [[0,0],[1,0],[2,0]] #tail ---> head
-import keyboard
+import keyboard # type: ignore
+from dependency import *
 
 direction = "right"
 def update_input() -> None:
@@ -14,8 +15,12 @@ def update_input() -> None:
          direction = 'up'           
 
 def update_coords() -> None:
+        new = positions[0]
         for coords_index in range(0,len(positions)-1):
             positions[coords_index] = list(positions[coords_index+1])
+
+        if ate == True:
+              positions.insert(0,new)
         
         if direction == "up":
                 positions[len(positions)-1][1] -= 1
