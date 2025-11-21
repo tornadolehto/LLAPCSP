@@ -1,5 +1,5 @@
 import random
-from dependency import *
+import dependency
 
 def create_grid(rows,columns) -> list:
     grid = []
@@ -11,27 +11,29 @@ def create_grid(rows,columns) -> list:
     return grid
 
 def add_fruit(positions) -> None:
-    global fruit_present
-    global chosen_position
-    if fruit_present != True:
-        fruit_coords = []
-        fruit_present = True
-        possiblex = [  x for x in range(columns)  ]
-        possibley = [  y for y in range(rows)  ]
+    print(dependency.run_add_fruit)
+    if dependency.run_add_fruit == True:
+        dependency.run_add_fruit = False
+        possiblex = [  x for x in range(dependency.columns)  ]
+        possibley = [  y for y in range(dependency.rows)  ]
         possible_positions = []
         for x in possiblex:
             for y in possibley:
                 if [x,y] not in positions:
                     possible_positions.append([x,y])
-        chosen_position = random.choice(possible_positions)
-        fruit_coords = [chosen_position[1],chosen_position[0]]
+        dependency.chosen_position = random.choice(possible_positions)
+    print(dependency.chosen_position)
 
-def check_eat(positions) -> None:
-    global fruit_present
-    global ate
-    if positions[len(positions)-1] == chosen_position:
-        fruit_present = False
-        ate = True
+def check_ate():
+    if dependency.positions[len(dependency.positions)-1] == dependency.chosen_position:
+        dependency.just_ate = True
+    else:
+        dependency.just_ate = False
+    print(dependency.just_ate)
+
+
+
+
         
         
 

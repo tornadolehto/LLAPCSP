@@ -1,6 +1,5 @@
-positions = [[0,0],[1,0],[2,0]] #tail ---> head
 import keyboard # type: ignore
-from dependency import *
+import dependency
 
 direction = "right"
 def update_input() -> None:
@@ -15,22 +14,26 @@ def update_input() -> None:
          direction = 'up'           
 
 def update_coords() -> None:
-        new = positions[0]
-        for coords_index in range(0,len(positions)-1):
-            positions[coords_index] = list(positions[coords_index+1])
+  
+        new = dependency.positions[0]
+        for coords_index in range(0,len(dependency.positions)-1):
+            dependency.positions[coords_index] = list(dependency.positions[coords_index+1])
 
-        if ate == True:
-              positions.insert(0,new) 
-              ate = False
+        print(dependency.just_ate)
+        if dependency.just_ate == True: #bricking out on this condition no idea why
+              print('added')
+              dependency.positions.insert(0,new) 
+              dependency.run_add_fruit = True
         
         if direction == "up":
-                positions[len(positions)-1][1] -= 1
+                dependency.positions[len(dependency.positions)-1][1] -= 1
         elif direction == 'down':
-                positions[len(positions)-1][1] += 1
+                dependency.positions[len(dependency.positions)-1][1] += 1
         elif direction == 'left':
-                positions[len(positions)-1][0] -= 1
+                dependency.positions[len(dependency.positions)-1][0] -= 1
         elif direction == 'right':
-                positions[len(positions)-1][0] += 1
+                dependency.positions[len(dependency.positions)-1][0] += 1
+        print(dependency.positions)
                      
 
 

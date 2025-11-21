@@ -1,6 +1,6 @@
 rows = 5
 columns = 10
-ate = False
-fruit_present = False
-fruit_coords = []
-chosen_position = []
+just_ate = False
+run_add_fruit = True
+chosen_position = [4,4]
+positions = [[0,0],[1,0],[2,0]] #tail ---> head
