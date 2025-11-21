@@ -36,13 +36,3 @@ def update_coords() -> None:
                 dependency.positions[len(dependency.positions)-1][0] -= 1
         elif dependency.chosen_direction == 'right':
                 dependency.positions[len(dependency.positions)-1][0] += 1
-                     
-
-
-
-
-
-        
-
-    
-

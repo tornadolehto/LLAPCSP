@@ -7,7 +7,7 @@ def create_grid(rows,columns) -> list:
         grid.append([])
     for row in grid:
         for _ in range(0,columns):
-            row.append("/")
+            row.append(dependency.empty_char)
     return grid
 
 def add_fruit(positions) -> None:
@@ -28,19 +28,3 @@ def check_ate():
         dependency.score += 1
     else:
         dependency.just_ate = False
-
-
-
-
-        
-        
-
-
-
-
-
-
-
-
-
-

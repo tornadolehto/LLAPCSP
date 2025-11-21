@@ -39,16 +39,13 @@ while True:
         for xindex in range(0, dependency.columns):
             for yindex in range(0, dependency.rows):
                 if [xindex, yindex] in dependency.positions:
-                    grid[yindex][xindex] = "O"
+                    grid[yindex][xindex] = dependency.snake_char
                 elif [xindex,yindex] == dependency.chosen_position:
-                    grid[yindex][xindex] = "X"
+                    grid[yindex][xindex] = dependency.fruit_char
                 else:
-                    grid[yindex][xindex] = "/"
+                    grid[yindex][xindex] = dependency.empty_char
         for row in grid:
             print(str("".join(i for i in row)))
         print(f"Score: {dependency.score}")
     iteration += 1
 print("You lose! Moron! Idiot!")
-
-
-

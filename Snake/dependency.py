@@ -7,3 +7,6 @@ positions = [[0,0],[1,0],[2,0]] #tail ---> head
 direction = "right"
 chosen_direction = None
 score = 0
+snake_char = "O"
+empty_char = "-"
+fruit_char = "X"
