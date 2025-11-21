@@ -1,39 +1,41 @@
 import keyboard # type: ignore
 import dependency
 
-direction = "right"
+
 def update_input() -> None:
-    global direction
-    if keyboard.is_pressed('a'):
-         direction = 'left'
-    elif keyboard.is_pressed('s'):
-         direction = 'down'
-    elif keyboard.is_pressed('d'):
-         direction = 'right'
-    elif keyboard.is_pressed('w'):
-         direction = 'up'           
+        invalid_combos = [['up','down'],
+                        ['down','up'],
+                        ['left','right'],
+                        ['right','left']]
+        if keyboard.is_pressed('a'):
+                dependency.direction = 'left'
+        elif keyboard.is_pressed('s'):
+                dependency.direction = 'down'
+        elif keyboard.is_pressed('d'):
+                dependency.direction = 'right'
+        elif keyboard.is_pressed('w'):
+                dependency.direction = 'up'  
+        if [dependency.chosen_direction,dependency.direction] in invalid_combos:
+                dependency.direction = str(dependency.chosen_direction)
+                
 
 def update_coords() -> None:
-  
         new = dependency.positions[0]
         for coords_index in range(0,len(dependency.positions)-1):
             dependency.positions[coords_index] = list(dependency.positions[coords_index+1])
 
-        print(dependency.just_ate)
-        if dependency.just_ate == True: #bricking out on this condition no idea why
-              print('added')
+        if dependency.just_ate == True:
               dependency.positions.insert(0,new) 
               dependency.run_add_fruit = True
-        
-        if direction == "up":
+
+        if dependency.chosen_direction == "up":
                 dependency.positions[len(dependency.positions)-1][1] -= 1
-        elif direction == 'down':
+        elif dependency.chosen_direction == 'down':
                 dependency.positions[len(dependency.positions)-1][1] += 1
-        elif direction == 'left':
+        elif dependency.chosen_direction == 'left':
                 dependency.positions[len(dependency.positions)-1][0] -= 1
-        elif direction == 'right':
+        elif dependency.chosen_direction == 'right':
                 dependency.positions[len(dependency.positions)-1][0] += 1
-        print(dependency.positions)
                      
 
 
