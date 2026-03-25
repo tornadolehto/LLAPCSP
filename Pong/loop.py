@@ -1,5 +1,6 @@
 import pygame
-
+import ball
+import random
 # pygame setup
 pygame.init()
 screen = pygame.display.set_mode((1280, 720))
@@ -7,20 +8,32 @@ clock = pygame.time.Clock()
 running = True
 screen.fill('black')
 
-playerx = 100
+padv = 15
+balln = 1
+balls = []
+playerx = 305
 playery = 310
 pwidth = 10
 pheight = 100
+pcenter = (playery-pheight)/2
 player = pygame.Rect(playerx,playery,pwidth,pheight)
 
-radius = 30
-bx = 640
-by = 360
-bdx = -10
-bdy = -5
+for b in range(balln):
+    balls.append(ball.Ball(
+        640,
+        360,
+        random.randint(-5,5)*(random.random()+1),
+        random.randint(-5,5)*(random.random()+1),
+        10))
+
+p2x = 1280-playerx-pwidth
+p2y = 360
+p2center = (p2y-pheight)/2
+
+ai = False
 
 def running():
-    global playerx,playery,pwidth,pheight,by,bx,bdx,bdy,radius
+    global playerx,playery,pwidth,pheight,p2x,p2y,padv,balls,pcenter,p2center
 
     keys = pygame.key.get_pressed()
 
@@ -33,28 +46,55 @@ def running():
         if event.type == pygame.QUIT:
            pygame.quit()
 
-    if keys[pygame.K_UP]:
-        if playery > 0:
-            playery -= 15
-    if keys[pygame.K_DOWN]:
-        if playery < 620:
-            playery += 15
+    if keys[pygame.K_w]:
+        if playery-15 >= 0:
+            playery -= padv
+    if keys[pygame.K_s]:
+        if playery <= 720-pheight:
+            playery += padv
+    pcenter = (playery-pheight)/2
+
+    if ai == True: #fix
+            p2y += bdy if p2y + bdy < 720-pheight and p2y + bdy > 0 else 0
+    else:
+        if keys[pygame.K_UP]:
+            if p2y-padv >= 0:
+                p2y -= padv
+        if keys[pygame.K_DOWN]:
+            if p2y+padv <= 720-pheight:
+                p2y += padv
+    p2center = (p2y-pheight)/2
+
+
     player = pygame.Rect(playerx,playery,pwidth,pheight)
     pygame.draw.rect(screen,'white',player)
+    p2 = pygame.Rect(p2x,p2y,pwidth,pheight)
+    pygame.draw.rect(screen,'white',p2)
 
-    if by-radius <= 0 or by+radius >= 720:
-        bdy *= -1
-    if bx-radius == playerx+pwidth:
-        if by > playery and by < playery + pheight:
-            bdx *= -1
-    if bx+radius > 1280:
-        bdx *= -1
-    if bx-radius < 0:
-        pygame.quit()
-    pygame.draw.circle(screen,'red',[bx,by],radius)
- 
-    bx += bdx
-    by += bdy
+    for b in balls:
+
+        if b.by-b.radius <= 0 or b.by+b.radius >= 720:
+           b.bdy *= -1
+        #p1 and p2 collisions
+        if b.bx-b.radius <= playerx+pwidth and not b.bx+b.radius <= playerx+pwidth and b.bdx < 0:
+            if b.by > playery and b.by < playery + pheight:
+
+                b.bdx *= -1 #implement physics
+
+        if b.bx+b.radius >= p2x and not b.bx-b.radius >= p2x and b.bdx > 0:
+            if b.by > p2y and b.by < p2y + pheight:
+
+                b.bdx *= -1 #implement physics
+
+        if b.bx+b.radius > 1280:
+            pygame.quit()
+        if b.bx-b.radius < 0:
+            pygame.quit()
+
+        pygame.draw.circle(screen,'red',[b.bx,b.by],b.radius)
+    
+        b.bx += b.bdx
+        b.by += b.bdy
 
     pygame.display.flip()
 
