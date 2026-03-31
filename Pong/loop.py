@@ -11,7 +11,7 @@ running = True
 screen.fill('black')
 
 padv = 15
-balln = 2
+balln = 1
 balls = []
 playerx = 150
 playery = 310
@@ -90,6 +90,7 @@ def running():
                 b.bdy = abs(speed*bdiff)*mult
                 # print(speed,b.bdy)
                 b.bdx = math.sqrt(speed**2-b.bdy**2) 
+                speed += 2
 
 
         
@@ -104,6 +105,7 @@ def running():
                 b.bdy = abs(speed*bdiff)*mult
                 # print(speed,b.bdy)
                 b.bdx = -math.sqrt(speed**2-b.bdy**2) 
+                speed += 2
 
         if b.bx+b.radius > 1280:
             pygame.quit()
