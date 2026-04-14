@@ -19,7 +19,7 @@ pwidth = 10
 pheight = 100
 pcenter = playery+pheight/2
 player = pygame.Rect(playerx,playery,pwidth,pheight)
-speed = 5
+speed = 7.5
 
 for b in range(balln):
     rand = (random.random()-0.5)*speed*2
@@ -34,7 +34,7 @@ p2x = 1280-playerx-pwidth
 p2y = 360
 p2center = p2y+pheight/2
 
-ai = False
+ai = True #PARKINSONS
 
 def running():
     global playerx,playery,pwidth,pheight,p2x,p2y,padv,balls,pcenter,p2center,speed
@@ -53,20 +53,40 @@ def running():
     if keys[pygame.K_w]:
         if playery-15 >= 0:
             playery -= padv
+        else:
+            playery = 0
     if keys[pygame.K_s]:
         if playery <= 720-pheight:
             playery += padv
+        else:
+            playery = 720-pheight
     pcenter = playery+pheight/2
 
-    if ai == True: #fix
-            p2y += bdy if p2y + bdy < 720-pheight and p2y + bdy > 0 else 0
+    if balln == 1:
+        for ball in balls:
+            bdy = ball.bdy+random.randint(-15,15)
+    if ai == True:
+        if bdy < 0:
+            if p2y-bdy >= 0:
+                p2y += bdy
+            else:
+                p2y = 0
+        elif bdy > 0:
+            if p2y+bdy <= 720-pheight:
+                p2y += bdy
+            else:
+                p2y = 720-pheight      
     else:
         if keys[pygame.K_UP]:
             if p2y-padv >= 0:
                 p2y -= padv
+            else:
+                p2y = 0
         if keys[pygame.K_DOWN]:
             if p2y+padv <= 720-pheight:
                 p2y += padv
+            else:
+                p2y = 720-pheight
     p2center = p2y+pheight/2
 
 
