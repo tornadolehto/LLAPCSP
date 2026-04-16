@@ -10,8 +10,8 @@ clock = pygame.time.Clock()
 running = True
 screen.fill('black')
 
-padv = 15
-balln = 1
+padv = 20
+balln = 5
 balls = []
 playerx = 150
 playery = 310
@@ -19,7 +19,7 @@ pwidth = 10
 pheight = 100
 pcenter = playery+pheight/2
 player = pygame.Rect(playerx,playery,pwidth,pheight)
-speed = 7.5
+speed = 5
 
 for b in range(balln):
     rand = (random.random()-0.5)*speed*2
@@ -34,7 +34,7 @@ p2x = 1280-playerx-pwidth
 p2y = 360
 p2center = p2y+pheight/2
 
-ai = True #PARKINSONS
+ai = False
 
 def running():
     global playerx,playery,pwidth,pheight,p2x,p2y,padv,balls,pcenter,p2center,speed
@@ -64,7 +64,7 @@ def running():
 
     if balln == 1:
         for ball in balls:
-            bdy = ball.bdy+random.randint(-15,15)
+            bdy = ball.bdy+random.randint(0,0)
     if ai == True:
         if bdy < 0:
             if p2y-bdy >= 0:
