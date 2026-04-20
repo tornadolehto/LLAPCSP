@@ -1,3 +1,4 @@
+#start of file
 import pygame
 import ball
 import random
@@ -11,7 +12,7 @@ running = True
 screen.fill('black')
 
 padv = 15
-balln = 1
+balln = 2
 balls = []
 playerx = 150
 playery = 310
@@ -19,7 +20,7 @@ pwidth = 10
 pheight = 100
 pcenter = playery+pheight/2
 player = pygame.Rect(playerx,playery,pwidth,pheight)
-speed = 7.5
+speed = 5
 
 for b in range(balln):
     rand = (random.random()-0.5)*speed*2
@@ -34,7 +35,7 @@ p2x = 1280-playerx-pwidth
 p2y = 360
 p2center = p2y+pheight/2
 
-ai = True #PARKINSONS
+ai = False #PARKINSONS
 
 def running():
     global playerx,playery,pwidth,pheight,p2x,p2y,padv,balls,pcenter,p2center,speed
@@ -110,7 +111,7 @@ def running():
                 b.bdy = abs(speed*bdiff)*mult
                 # print(speed,b.bdy)
                 b.bdx = math.sqrt(speed**2-b.bdy**2) 
-                speed += 2
+                speed += 1
 
 
         
@@ -143,3 +144,5 @@ def running():
 
 while True:
     running()
+
+#end of file

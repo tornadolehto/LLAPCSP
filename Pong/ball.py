@@ -1,3 +1,4 @@
+#start of file
 class Ball:
     def __init__(self,bx,by,bdx,bdy,radius):
         self.bx = bx
@@ -5,3 +6,4 @@ class Ball:
         self.radius = radius
         self.bdx = bdx
         self.bdy = bdy
+#end of file
