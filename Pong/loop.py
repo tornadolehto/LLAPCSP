@@ -28,8 +28,6 @@ p2x = 1280-constants.playerx-constants.pwidth
 p2y = 360
 p2center = p2y+constants.pheight/2
 
-ai = False
-
 def running():
     global p2x,p2y,pcenter,p2center
 
@@ -52,15 +50,13 @@ def running():
             constants.playery += constants.padv
     pcenter = constants.playery+constants.pheight/2
 
-    if ai == True:
-    p2y += bdy if p2y + bdy < 720-constants.pheight and p2y + bdy > 0 else 0 #error here!
-    else:
-        if keys[pygame.K_UP]:
-            if p2y-constants.padv >= 0:
-                p2y -= constants.padv
-        if keys[pygame.K_DOWN]:
-            if p2y+constants.padv <= 720-constants.pheight:
-                p2y += constants.padv
+
+    if keys[pygame.K_UP]:
+        if p2y-constants.padv >= 0:
+            p2y -= constants.padv
+    if keys[pygame.K_DOWN]:
+        if p2y+constants.padv <= 720-constants.pheight:
+            p2y += constants.padv
     p2center = p2y+constants.pheight/2
 
 
